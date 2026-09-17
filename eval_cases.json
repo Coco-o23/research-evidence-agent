@@ -1,0 +1,6 @@
+[
+  {"case": "matched_quote", "expected": "accept", "focus": "引用 ID 和原文片段均匹配"},
+  {"case": "wrong_paper", "expected": "reject", "focus": "引用错配"},
+  {"case": "invented_quote", "expected": "reject", "focus": "unsupported claim / 虚构证据"},
+  {"case": "empty_claim", "expected": "reject", "focus": "空结论"}
+]
