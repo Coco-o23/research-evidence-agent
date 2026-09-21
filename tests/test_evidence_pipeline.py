@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from evidence_pipeline import check_source_binding, execute_inquiry, retain_unique_abstracts
+from demo_examples import SAMPLE_CASES
 
 
 def paper(identifier="p1"):
@@ -29,4 +30,13 @@ def test_offline_graph(monkeypatch):
     assert len(result["cards"]) == 1
     assert result["matrix"][0]["引用ID"] == "p1"
     assert len(result["verified"]) == 1
+
+
+def test_curated_examples_keep_quotes_bound_to_their_sources():
+    for case in SAMPLE_CASES.values():
+        result = case["result"]
+        assert len(result["cards"]) >= 2
+        for claim in result["verified"]:
+            card = next(card for card in result["cards"] if card["paper_id"] == claim["paper_id"])
+            assert claim["evidence_quote"].casefold() in card["abstract"].casefold()
 
